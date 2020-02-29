@@ -33,10 +33,12 @@ filetype plugin on
 filetype plugin indent on
 set mouse=a
 set list
+set scrolloff=10
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " quick move
-map J 5j
+map <C-j> 5j
+map <C-k> 5k
 
 " split
 map sl :set splitright<CR>:vsplit<CR>
@@ -62,6 +64,9 @@ map <right> :vertical resize +5<CR>
 map tu :tabe<CR>
 map th :-tabnext<CR>
 map tl :+tabnext<CR>
+
+" placeholder <++>
+map <SPACE><SPACE> /<++><CR>:nohlsearch<CR>4xi
 
 " the config of nerdtree
 " open nerdtree when vim start up.
