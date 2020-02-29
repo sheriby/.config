@@ -34,11 +34,15 @@ filetype plugin indent on
 set mouse=a
 set list
 set scrolloff=10
+let g:mapleader='.'
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " quick move
-map <C-j> 5j
-map <C-k> 5k
+"nmap <C-j> 5j
+"nmap <C-k> 5k
+imap <C-j> <Esc>
+nmap <C-j> 5j
+nmap <C-k> 5k
 
 " split
 map sl :set splitright<CR>:vsplit<CR>
@@ -65,8 +69,49 @@ map tu :tabe<CR>
 map th :-tabnext<CR>
 map tl :+tabnext<CR>
 
-" placeholder <++>
-map <SPACE><SPACE> /<++><CR>:nohlsearch<CR>4xi
+" placeholder 
+nmap <SPACE><SPACE> /<++><CR>:nohlsearch<CR>4xi
+
+" compile this file
+nmap <C-r> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+    exec "w"
+    if &filetype == 'c'
+        exec "!gcc % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'sh'
+        :!time bash %
+    elseif &filetype == 'python'
+        silent! exec "!clear"
+        exec "!time python3 %"
+    elseif &filetype == 'html'
+        exec "!firefox % &"
+    elseif &filetype == 'markdown'
+        exec "!MarkdownPreview"
+    elseif &filetype == "vimwiki"
+        exec "!MarkdownPreview"
+    endif
+endfunc
+
+
+" MarkDown Snippets
+autocmd FileType markdown inoremap ,f <Esc>/<++><CR>:nohlsearch<CR>4xi
+autocmd FileType markdown inoremap ,n <Enter><Enter>
+autocmd FileType markdown inoremap ,b **** <++><Esc>F*hi
+autocmd FileType markdown inoremap ,s ~~~~ <++><Esc>F~hi
+autocmd FileType markdown inoremap ,i ** <++><Esc>F*i
+autocmd FileType markdown inoremap ,d `` <++><Esc>F`i
+autocmd FileType markdown inoremap ,c ```<Enter><++><Enter>```<Enter><Enter><++><Esc>4kA
+autocmd FileType markdown inoremap ,p ![](<++>) <++><Esc>F[a
+autocmd FileType markdown inoremap ,a [](<++>) <++><Esc>F[a
+autocmd FileType markdown inoremap ,1 #<Space><Enter><++><Esc>kA
+autocmd FileType markdown inoremap ,2 ##<Space><Enter><++><Esc>kA
+autocmd FileType markdown inoremap ,3 ###<Space><Enter><++><Esc>kA
+autocmd FileType markdown inoremap ,4 ####<Space><Enter><++><Esc>kA
+autocmd FileType markdown inoremap ,5 #####<Space><Enter><++><Esc>kA
 
 " the config of nerdtree
 " open nerdtree when vim start up.
@@ -109,9 +154,65 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'Yggdroot/indentLine'
 "Plug 'jacoborus/tender.vim'
 Plug 'vim-python/python-syntax'
+Plug 'preservim/nerdcommenter'
+Plug 'luochen1990/rainbow'
+Plug 'gruehle/MarkdownPreview'
+Plug 'junegunn/vim-easy-align'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'lambdalisue/gina.vim'
 call plug#end()
 
-" tender
+let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
+" nerdcommenter config
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1
+
+
+" vim-table-mode
+function! s:isAtStartOfLine(mapping)
+  let text_before_cursor = getline('.')[0 : col('.')-1]
+  let mapping_pattern = '\V' . escape(a:mapping, '\')
+  let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+  return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+endfunction
+
+inoreabbrev <expr> <bar><bar>
+          \ <SID>isAtStartOfLine('\|\|') ?
+          \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+inoreabbrev <expr> __
+          \ <SID>isAtStartOfLine('__') ?
+          \ '<c-o>:silent! TableModeDisable<cr>' : '__'
+
+
+if &filetype == "markdown"
+    let g:table_mode_corner='|'
+else
+    let g:table_mode_corner_corner='+'
+    let g:table_mode_header_fillchar='='
+endif
+
+" vim-easy-align config
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+""
+"" tender
 "if (has("termguicolors"))
 " set termguicolors
 "endif
@@ -127,8 +228,13 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-
-
+let g:airline_powerline_fonts=1
+let g:airline#extensions#whitespace#enabled=0
+if !exists('g:airline_symbols')
+    let g:airline_symbols={}
+endif
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#displayed_head_limit = 10
 " autocmd BufEnter * call ncm2#enable_for_buffer()
 
 " set completeopt=noinsert,menuone,noselect
