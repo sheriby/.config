@@ -9,7 +9,43 @@ set nobackup
 set noswapfile
 set noerrorbells
 set encoding=UTF-8
+set nocompatible
+filetype on
+filetype indent on
+filetype plugin on
+filetype plugin indent on
+set mouse=a
+set list
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
+" quick move
+map J 5j
+
+" split
+map sl :set splitright<CR>:vsplit<CR>
+map sh :set nosplitright<CR>:vsplit<CR>
+map sj :set splitbelow<CR>:split<CR>
+map sk :set nosplitbelow<CR>:split<CR>
+
+" move my window
+map md <C-w>l
+map ma <C-w>h
+map ms <C-w>j
+map mw <C-w>k
+
+map sv <C-w>t<C-w>H
+map sh <C-w>t<C-w>K
+
+" resize my window
+map <up> :res +5<CR>
+map <down> :res -5<CR>
+map <left> :vertical resize -5<CR>
+map <right> :vertical resize +5<CR>
+
+map tu :tabe<CR>
+map th :-tabnext<CR>
+map tl :+tabnext<CR>
+
 " the config of nerdtree
 " open nerdtree when vim start up.
 "autocmd StdinReadPre * let s:std_in=1
@@ -48,8 +84,27 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'mhinz/vim-startify'
 Plug 'Chiel92/vim-autoformat'
+Plug 'Yggdroot/indentLine'
+"Plug 'jacoborus/tender.vim'
+Plug 'vim-python/python-syntax'
 call plug#end()
 
+" tender
+"if (has("termguicolors"))
+" set termguicolors
+"endif
+"
+"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"
+"colorscheme tender
+
+
+"airline config
+let g:airline_theme = 'dracula'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 
 " autocmd BufEnter * call ncm2#enable_for_buffer()
@@ -59,10 +114,10 @@ call plug#end()
 " let g:ncm2#matcher = 'substrfuzzy'
 
 " coc
-autocmd CursorHold * silent call CocActionAsync('highlight')
+"autocmd CursorHold * silent call CocActionAsync('highlight')
 " plug snazzy
-color snazzy
-let g:SnazzyTransparent = 1
+ color snazzy
+ let g:SnazzyTransparent = 1
 " color dracula
 syntax enable
 set background=dark
@@ -234,6 +289,10 @@ let g:cpp_experimental_simple_template_highlight = 1
 let g:cpp_experimental_simple_template_highlight = 1
 let g:cpp_concepts_highlight = 1
 let g:cpp_no_function_highlight = 1
+
+" highlight for python config
+let g:python_highlight_all = 1
+
 
 " vim autoformat config
 noremap <F3> :Autoformat<CR>
