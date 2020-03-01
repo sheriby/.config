@@ -14,6 +14,43 @@
 "
 "============================================================
 
+call plug#begin()
+Plug 'https://github.com/vim-scripts/fcitx.vim.git'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'junegunn/vim-easy-align'
+Plug 'jiangmiao/auto-pairs'
+" Plug 'ncm2/ncm2'
+" Need pip3 install pynvim --user
+" Plug 'roxma/nvim-yarp'
+" Plug 'ncm2/ncm2-bufword'
+" Plug 'ncm2/ncm2-path'
+" Need pip3 install jedi --user
+" Plug 'ncm2/ncm2-jedi'
+Plug 'junegunn/fzf', { 'do': './install --bin'  }
+Plug 'junegunn/fzf.vim'
+Plug 'connorholyday/vim-snazzy'
+Plug 'dracula/vim', {'name': 'dracula'}
+"Plug 'ncm2/ncm2-pyclang'
+
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'mhinz/vim-startify'
+Plug 'Chiel92/vim-autoformat'
+Plug 'Yggdroot/indentLine'
+"Plug 'jacoborus/tender.vim'
+Plug 'vim-python/python-syntax'
+Plug 'preservim/nerdcommenter'
+Plug 'luochen1990/rainbow'
+Plug 'gruehle/MarkdownPreview'
+Plug 'junegunn/vim-easy-align'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'lambdalisue/gina.vim'
+call plug#end()
 
 set number
 set relativenumber
@@ -68,6 +105,10 @@ map <right> :vertical resize +5<CR>
 map tu :tabe<CR>
 map th :-tabnext<CR>
 map tl :+tabnext<CR>
+
+" fzf 
+map <C-h> :History<CR>
+
 
 " placeholder 
 nmap <SPACE><SPACE> /<++><CR>:nohlsearch<CR>4xi
@@ -124,43 +165,6 @@ map <C-n> :NERDTreeToggle<CR>
 " close vim when there is only nerdtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-call plug#begin()
-Plug 'https://github.com/vim-scripts/fcitx.vim.git'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'junegunn/vim-easy-align'
-Plug 'jiangmiao/auto-pairs'
-" Plug 'ncm2/ncm2'
-" Need pip3 install pynvim --user
-" Plug 'roxma/nvim-yarp'
-" Plug 'ncm2/ncm2-bufword'
-" Plug 'ncm2/ncm2-path'
-" Need pip3 install jedi --user
-" Plug 'ncm2/ncm2-jedi'
-Plug 'junegunn/fzf', { 'do': './install --bin'  }
-Plug 'junegunn/fzf.vim'
-Plug 'connorholyday/vim-snazzy'
-Plug 'dracula/vim', {'name': 'dracula'}
-"Plug 'ncm2/ncm2-pyclang'
-
-Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'mhinz/vim-startify'
-Plug 'Chiel92/vim-autoformat'
-Plug 'Yggdroot/indentLine'
-"Plug 'jacoborus/tender.vim'
-Plug 'vim-python/python-syntax'
-Plug 'preservim/nerdcommenter'
-Plug 'luochen1990/rainbow'
-Plug 'gruehle/MarkdownPreview'
-Plug 'junegunn/vim-easy-align'
-Plug 'dhruvasagar/vim-table-mode'
-Plug 'lambdalisue/gina.vim'
-call plug#end()
 
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 " nerdcommenter config
