@@ -14,6 +14,11 @@
 "
 "============================================================
 
+" vim-plug
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"
+
 call plug#begin()
 Plug 'https://github.com/vim-scripts/fcitx.vim.git'
 Plug 'vim-airline/vim-airline'
@@ -27,7 +32,7 @@ Plug 'jiangmiao/auto-pairs'
 " Plug 'ncm2/ncm2-path'
 " Need pip3 install jedi --user
 " Plug 'ncm2/ncm2-jedi'
-Plug 'junegunn/fzf', { 'do': './install --bin'  }
+Plug 'junegunn/fzf', { 'do': './install --bin'  } " some config in my zshrc
 Plug 'junegunn/fzf.vim'
 Plug 'connorholyday/vim-snazzy'
 Plug 'dracula/vim', {'name': 'dracula'}
@@ -47,9 +52,8 @@ Plug 'vim-python/python-syntax'
 Plug 'preservim/nerdcommenter'
 Plug 'luochen1990/rainbow'
 Plug 'gruehle/MarkdownPreview'
-Plug 'junegunn/vim-easy-align'
 Plug 'dhruvasagar/vim-table-mode'
-Plug 'lambdalisue/gina.vim'
+Plug 'lambdalisue/gina.vim' " airline => git
 call plug#end()
 
 set number
@@ -72,6 +76,7 @@ set mouse=a
 set list
 set scrolloff=10
 let g:mapleader='.'
+" set foldmethod=indent
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " quick move
@@ -108,6 +113,7 @@ map tl :+tabnext<CR>
 
 " fzf 
 map <C-h> :History<CR>
+map <C-f> :Files<CR>
 
 
 " placeholder 
