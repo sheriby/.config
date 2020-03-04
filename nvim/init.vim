@@ -54,6 +54,12 @@ Plug 'luochen1990/rainbow'
 Plug 'gruehle/MarkdownPreview'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'lambdalisue/gina.vim' " airline => git
+
+" code snippets
+"Plug 'SirVer/Ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'justinmk/vim-syntax-extra'
+
 call plug#end()
 
 set number
@@ -254,8 +260,9 @@ let g:airline#extensions#branch#displayed_head_limit = 10
 " coc
 "autocmd CursorHold * silent call CocActionAsync('highlight')
 " plug snazzy
- color snazzy
- let g:SnazzyTransparent = 1
+color snazzy
+let g:SnazzyTransparent = 1 
+"highlight Normal ctembg= Black
 " color dracula
 syntax enable
 set background=dark
@@ -443,3 +450,18 @@ let g:formatdef_my_custom_c = '"clang-format -style=\"{BasedOnStyle: llvm, Inden
 "let g:formatdef_my_custom_c = '"clang-format --style=Google"'
 let g:formatters_c = ['my_custom_c']
 let g:formatters_cpp = ['my_custom_c']
+"
+"
+" code snippets config
+" let g:ultiSnipsExpandTrigger="<TAB>"
+" let g:ultiSnipsJumpForwardTrigger="<C-b>"
+" let g:ultiSnipsJumpbackwardTrigger="<C-z>"
+"
+" let g:ultiSnipsEditSplit="vertical"
+"
+
+imap <C-l> <Plug>(coc-snippets-expand)
+vmap <C-j> <Plug>(coc-snippets-select)
+
+let g:coc_snippet_next = '<C-i>'
+let g:coc_snippet_prev = '<C-z>'
