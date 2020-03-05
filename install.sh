@@ -1,5 +1,5 @@
 # install some important software
-sudo pacman -S zsh neovim ranger git
+sudo pacman -S zsh neovim ranger
 # install other software
 # AUR
 sudo pacman -S yaourt yay
@@ -17,9 +17,6 @@ mkdir ~/.local/share/fonts
 curl "https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete%20Mono.ttf" -o ~/.local/share/fonts/Hack Regular Nerd Font Complete Mono.ttf
 fc-cache -fv
 
-# clone my config repo
-mkdir ~/Github
-git clone https://github.com/sheriby/.config.git ~/Github/.config
 ################## For my zsh ##########################
 # install oh-my-zsh
 sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
