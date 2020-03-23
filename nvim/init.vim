@@ -60,6 +60,8 @@ Plug 'lambdalisue/gina.vim' " airline => git
 Plug 'honza/vim-snippets'
 Plug 'justinmk/vim-syntax-extra'
 
+
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 call plug#end()
 
 set number
@@ -72,6 +74,7 @@ set softtabstop=4
 set nobackup
 set noswapfile
 set noerrorbells
+set fileencodings=UTF-8,GBK
 set encoding=UTF-8
 set nocompatible
 filetype on
@@ -85,12 +88,16 @@ let g:mapleader='.'
 " set foldmethod=indent
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
-" quick move
-"nmap <C-j> 5j
-"nmap <C-k> 5k
+" easily to switch to normal mode from insert mode
 imap <C-j> <Esc>
-nmap <C-j> 5j
-nmap <C-k> 5k
+imap jj <Esc>
+
+" quick move
+map J 10j
+map K 10k
+map H 10h
+map L 10l
+
 
 " split
 map sl :set splitright<CR>:vsplit<CR>
@@ -121,6 +128,13 @@ map tl :+tabnext<CR>
 map <C-h> :History<CR>
 map <C-f> :Files<CR>
 
+nmap <Enter> o<Esc>
+
+" table my code
+" nmap <Tab> V>
+" nmap <S-Tab> V<
+" vmap <Tab> >gv
+" vmap <S-Tab> <gv
 
 " placeholder 
 nmap <SPACE><SPACE> /<++><CR>:nohlsearch<CR>4xi
@@ -141,7 +155,7 @@ func! CompileRunGcc()
         silent! exec "!clear"
         exec "!time python3 %"
     elseif &filetype == 'html'
-        exec "!firefox % &"
+        exec "!google-chrome-stable % &"
     elseif &filetype == 'markdown'
         exec "!MarkdownPreview"
     elseif &filetype == "vimwiki"
@@ -342,7 +356,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <C-k> :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)

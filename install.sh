@@ -14,8 +14,8 @@ sudo pacman fcitx fcitx-im fcitx-configtool fcitx-googlepinyin
 sudo pacman -S wqy-zenhei ttf-fireflysung 
 # install hack nerd font mono
 mkdir ~/.local/share/fonts
-curl "https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete%20Mono.ttf" -o ~/.local/share/fonts/Hack Regular Nerd Font Complete Mono.ttf
-fc-cache -fv
+#curl "https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete%20Mono.ttf" -o ~/.local/share/fonts/Hack Regular Nerd Font Complete Mono.ttf
+#fc-cache -fv
 
 ################## For my zsh ##########################
 # install oh-my-zsh

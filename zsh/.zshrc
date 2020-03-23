@@ -1,5 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+autoload -U colors && colors
+
+export PATH="$PATH:/home/sher/miniconda3/bin:/home/sher/.local/bin:/home/sher/go/bin"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/sher/.oh-my-zsh"
@@ -13,6 +16,12 @@ export RANGER_LOAD_DEFAULT_RC="false"
 #ZSH_THEME="robbyrussell"
 # Install jeremyFreeAgent/oh-my-zsh-powerline-theme
 ZSH_THEME="powerline"
+POWERLINE_RIGHT_A="exit-status-on-fail"
+# POWERLINE_RIGHT_A="💩"
+POWERLINE_HIDE_HOST_NAME="true"
+POWERLINE_RIGHT_B="💖😂💗"
+POWERLINE_PATH="short"
+#ZSH_THEME="agnoster"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -127,11 +136,56 @@ alias cls="clear"
 alias ra="ranger"
 alias vim="nvim"
 alias vi="nvim"
-alias s="screenfetch"
 alias n="neofetch"
 alias sz="source ~/.zshrc"
 alias lg="lazygit"
 alias h="htop"
 alias rc="nvim ~/.config/nvim/init.vim"
 alias cat="bat"
+alias fk="kill -KILL"
+alias hosts="alias hosts='sudo wget https://raw.githubusercontent.com/googlehosts/hosts/master/hosts-files/hosts -O /etc/hosts'"
+alias jk="jupyter notebook &> /dev/null &"
+alias killjk="kill -KILL $(ps aux | grep jupyter | awk '{print $2}' | head -n -1) &> /dev/null"
+alias wifi="/home/sher/scripts/link.sh"
 eval $(thefuck --alias)
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/sher/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/sher/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/sher/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/sher/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# for colorful man output
+export LESS_TERMCAP_mb=$'\E[01;36m'
+export LESS_TERMCAP_md=$'\E[01;36m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;33m'
+
+
+function ranger {
+    local IFS=$'\t\n'
+    local tempfile="$(mktemp -t tmp.XXXXXX)"
+    local ranger_cmd=(
+        command
+        ranger
+        --cmd="map Q chain shell echo %d > "$tempfile"; quitall"
+    )
+    
+    ${ranger_cmd[@]} "$@"
+    if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
+        cd -- "$(cat "$tempfile")" || return
+    fi
+    command rm -f -- "$tempfile" 2>/dev/null
+}

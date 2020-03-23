@@ -9,7 +9,7 @@
                 "directory": "/tmp/ccls"
             }
         }
-    }
+    } 
 },
 "coc.preferences.colorSupport": false
 }
