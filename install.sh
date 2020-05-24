@@ -63,3 +63,5 @@ mkdir ~/scripts
 touch ~/scripts/autostart.sh
 
 ################## and so on ######################
+yay -S libxft-bgra # solve the problem of emoji in simple termainal
+sudo pacman -S noto-font-emoji
