@@ -1,4 +1,6 @@
 "  __  __        __     _____ __  __ ____   ____
+"
+"
 " |  \/  |_   _  \ \   / /_ _|  \/  |  _ \ / ___|
 " | |\/| | | | |  \ \ / / | || |\/| | |_) | |
 " | |  | | |_| |   \ V /  | || |  | |  _ <| |___
@@ -59,10 +61,14 @@ Plug 'lambdalisue/gina.vim' " airline => git
 "Plug 'SirVer/Ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'justinmk/vim-syntax-extra'
-
-
+" Synchronize all Ranger's configuration and plugins with rnvimr
+Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 call plug#end()
+
+tnoremap <silent> <M-i> <C-\><C-n>:RnvimrResize<CR>
+nnoremap <silent> <M-o> :RnvimrToggle<CR>
+tnoremap <silent> <M-o> <C-\><C-n>:RnvimrToggle<CR>
 
 set number
 set relativenumber
@@ -85,7 +91,7 @@ set mouse=a
 set list
 set scrolloff=10
 let g:mapleader='.'
-" set foldmethod=indent
+set foldmethod=indent
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " easily to switch to normal mode from insert mode
@@ -104,6 +110,7 @@ map sl :set splitright<CR>:vsplit<CR>
 map sh :set nosplitright<CR>:vsplit<CR>
 map sj :set splitbelow<CR>:split<CR>
 map sk :set nosplitbelow<CR>:split<CR>
+
 
 " move my window
 map md <C-w>l
@@ -124,13 +131,18 @@ map tu :tabe<CR>
 map th :-tabnext<CR>
 map tl :+tabnext<CR>
 
+map tj :bp<CR>
+map tk :bn<CR>
+map td :bp<CR>:bd#<CR>
+
 " fzf 
 map <C-h> :History<CR>
 map <C-f> :Files<CR>
 
 nmap <Enter> o<Esc>
+map Y "+y
 
-" table my code
+"table my code
 " nmap <Tab> V>
 " nmap <S-Tab> V<
 " vmap <Tab> >gv
@@ -275,7 +287,7 @@ let g:airline#extensions#branch#displayed_head_limit = 10
 "autocmd CursorHold * silent call CocActionAsync('highlight')
 " plug snazzy
 color snazzy
-let g:SnazzyTransparent = 1 
+let g:SnazzyTransparent = 1
 "highlight Normal ctembg= Black
 " color dracula
 syntax enable
@@ -479,3 +491,15 @@ vmap <C-j> <Plug>(coc-snippets-select)
 
 let g:coc_snippet_next = '<C-i>'
 let g:coc_snippet_prev = '<C-z>'
+
+" Make Ranger replace netrw and be the file explorer
+let g:rnvimr_ex_enable = 1
+let g:rnvimr_pick_enable = 1
+
+" Customize the initial layout
+let g:rnvimr_layout = { 'relative': 'editor',
+            \ 'width': float2nr(round(0.8 * &columns)),
+            \ 'height': float2nr(round(0.8 * &lines)),
+            \ 'col': float2nr(round(0.1 * &columns)),
+            \ 'row': float2nr(round(0.1 * &lines)),
+            \ 'style': 'minimal' }

@@ -79,7 +79,8 @@ POWERLINE_PATH="short"
 # fzf config
 #export FZF_DEFAULT_OPTS='--bind ctrl-e:down,ctrl-u:up --preview "[[ $(file --mime {}) =~ binary  ]] && echo {} is a binary file || (ccat --color=always {} || highlight -O ansi -l {} || cat {}) 2> /dev/null | head -500"'
 export FZF_DEFAULT_OPTS='--preview "bat --style=numbers --color=always {} | head -500"'
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+# export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='ag -t --ignore .deepinwine -g ""'
 export FZF_COMPLETION_TRIGGER='\'
 export FZF_TMUX_HEIGHT='80%'
 #export FZF_PREVIEW_COMMAND='[[ $(file --mime {}) =~ binary  ]] && echo {} is a binary file || (ccat --color=always {} || highlight -O ansi -l {} || cat {}) 2> /dev/null | head -500'
@@ -102,7 +103,7 @@ source ~/.config/zsh/completion.zsh
 # zsh-syntax-highlighting
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 bindkey ',' autosuggest-accept
-plugins=(git z extract zsh-autosuggestions zsh-syntax-highlighting zsh-completions)
+plugins=(git z extract zsh-autosuggestions zsh-syntax-highlighting zsh-completions fzf-tab safe-paste)
 source $ZSH/oh-my-zsh.sh
 export EDITOR='nvim'
 autoload -U compinit && compinit
@@ -174,6 +175,7 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;33m'
 
 
+# use Q to quit in ranger
 function ranger {
     local IFS=$'\t\n'
     local tempfile="$(mktemp -t tmp.XXXXXX)"
